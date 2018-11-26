@@ -54,7 +54,7 @@ summary statistics of the traffic signs data set:
 
 Here is an exploratory visualization of the data set.
 
-![alt text][image4]
+![alt text][image1]
 
 ### Design and Test a Model Architecture
 
