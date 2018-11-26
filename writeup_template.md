@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./writeup-picture/visualization.png "visualization"
+[image1]: ./writeup-picture/visualization_dataset.png "visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./new-traffic-signs/30_1.png "New Traffic Sign 1"
@@ -54,7 +54,7 @@ summary statistics of the traffic signs data set:
 
 Here is an exploratory visualization of the data set.
 
-![alt text][image1]
+![alt text][image1] 
 
 ### Design and Test a Model Architecture
 
