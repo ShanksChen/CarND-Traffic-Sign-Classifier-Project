@@ -60,11 +60,9 @@ Here is an exploratory visualization of the data set.
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because the images in the dataset have RGB layers. After grayscale it become one layer.
+First I decided to convert the images to grayscale because the images in the dataset have RGB layers. After grayscale it become one layer. Then I normalized the image data because the image data should be normalized so that the data has mean zero and equal variance. For image data, `(pixel - 128)/ 128` is a quick way to approximately normalize the data and can be used in this project. The result wsa that all pixel value in image data were between -1 and 1.
 
-As a last step, I normalized the image data because the image data should be normalized so that the data has mean zero and equal variance. For image data, `(pixel - 128)/ 128` is a quick way to approximately normalize the data and can be used in this project. 
-
-After normalized the image data, I shuffle the test set by the function *shuffle* from *sklearn.utils*
+After nomalized function, I shuffled the image data. Because to avoiding the over fitting.
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -89,16 +87,37 @@ My final model, which is LeNet-5, consisted of the following layers:
 | Fully connected		| Input = 84.     Outputs = 43					|
 |						|												|
  
+This architecture have 5 layers:
+First layer is a convolution layer, it inclued an convolution, a RELU function and a max pooling function. The convolution used strides 1, padding was valid. The max pooling function used strides 2, padding was valid. The input data size is 32x32x1, after max pooling functiong the output size is 14x14x6.
+
+Second layer is also an convolution layer same as the first layer excepts the data size. The input data size is 14x14x6, output is 5x5x16.
+
+Third layer is a flatten layer, transform the data size from 5x5x16 to 400.
+
+Fourth layer is fully connected layer, it included a matrix multiply, a RELU function and a dropout function. Theinput data size of this layer is 400 and the output is 120.
+
+Fifth layer is also a fully connected layer same as the fourth layer excepts the data size. The input size is 120 and the output is 84.
+
+Sixth layer is a fully connected layer but only had a matrix multiply function. The input size is 84 and the output is 43 which is the same size with the labels.
+
+Why I choose the RELU function. Because compared with Sigmoid, ReLU greatly reduces the computation; on the other hand, when the input signal is strong, the difference between the signals can still be preserved.
+
+And the max pooling function can ensure that the position and rotation of the feature are invariant and reduce overfitting problems.
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an model which I learnd from the class. 
-The optimizer is *AdamOptimizer* which is a kind of extensions and variants of SGD(Stochastic gradient descent).
-The batch size is 128, same in the class.
-The unmber of epochs is 60, because I want to get better result. However, the accuracy don't increase when the epochs is very large. But 60 is not too large for training.
-The learning rate is 0.001. The learning rate can not be very small.
-The probability to keep units for the dropout in the training model is 0.5. It will reduce overfitting.
+To train the model, I used an LeNet-5 architecture.
+
+The optimizer is *AdamOptimizer*. It is based on the gradient descent method, but the learning step size of each iteration parameter has a certain range, which does not lead to a large learning step due to a large gradient, and the parameter value is relatively stable.
+
+The batch size is 128, depends on my laptop. This size works well in the class quiz, so I choosen this size for the project.
+
+The unmber of epochs is 60, because I want to get better result. I tried 100, but the accuracy increased very slow after 50. Then I decided to use 60.
+
+The learning rate is 0.001. Bigger learning rate may cause a large gradient descent.
+
+After cross-validation, the implicit node dropout rate is equal to 0.5, which is the best, because the dropout randomly generates the most network structure at 0.5. [1](https://blog.csdn.net/dod_jdi/article/details/78379781) 
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
